@@ -1,0 +1,19 @@
+ services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "123@Donut"
+      MYSQL_DATABASE: api_sentinel
+    ports:
+      - "3307:3306"
+
+  api-sentinel:
+    image: api-sentinel:latest
+    container_name: api-sentinel-container
+    depends_on:
+      - mysql
+    restart: on-failure
+    ports:
+      - "8080:8080"
